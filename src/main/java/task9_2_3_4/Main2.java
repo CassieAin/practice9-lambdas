@@ -1,7 +1,6 @@
-package task9_2;
+package task9_2_3_4;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -40,7 +39,6 @@ public class Main2 {
         for (String s : strings) {
             System.out.print(s + " ");
         }
-        System.out.println( " ");
 
         System.out.print("\nAfter change: " + changeArray(array, a -> a % 3 == 0));
 
@@ -49,7 +47,11 @@ public class Main2 {
             System.out.print(s + " ");
         }
 
-
+        System.out.print("\nConverted to uppercase: ");
+        StringConversion<String, String> convertToUppercase = String::toUpperCase;
+        for (String string : strings) {
+            System.out.print(convertToUppercase.convertString(string) + " ");
+        }
     }
 
     public static long changeArray(Integer [] array, Predicate<Integer> matchPredicate){
@@ -61,12 +63,12 @@ public class Main2 {
     }
 
     @FunctionalInterface
-    public interface StringConversion {
+    public interface StringConversion<T, R> {
 
-        String convertString(String s);
+        R convertString(T t);
 
-        default boolean exists(String s){
-            return s.isEmpty();
+        static boolean exists(String s){
+            return !s.equals(null);
         }
     }
 }
